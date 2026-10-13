@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tonni, Will You Marry Me? ♥</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital@0;1&family=Inter:wght@400;600&family=Hind+Siliguri:wght@300;400;500;600;700&family=Tiro+Bangla:ital@0;1&family=Baloo+Da+2:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+.proposal-hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:100px 5% 60px}
+.big-heart{font-size:110px;color:#ff2a7f;text-shadow:0 0 30px rgba(255,42,127,1),0 0 80px rgba(255,42,127,.7),0 0 140px rgba(255,31,143,.5);animation:heartbeat 1.4s infinite}
+@keyframes heartbeat{0%,100%{transform:scale(1)}25%{transform:scale(1.2)}40%{transform:scale(1)}60%{transform:scale(1.15)}}
+.proposal-title{font-family:'Dancing Script',cursive;font-size:clamp(48px,8vw,90px);background:linear-gradient(180deg,#fff,#ff7eb6,#ff1f8f);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 20px rgba(255,42,127,.6))}
+.proposal-sub{font-family:'Playfair Display',serif;font-style:italic;color:#c99aaf;font-size:20px;margin:14px 0 30px;line-height:1.7;max-width:600px}
+#lockBox,#unlockBox{max-width:620px;margin:0 auto;background:rgba(255,42,127,.07);border:1px solid rgba(255,42,127,.4);border-radius:28px;padding:44px 32px;box-shadow:0 0 30px rgba(255,42,127,.8),0 0 80px rgba(255,42,127,.4),inset 0 0 30px rgba(255,42,127,.12)}
+</style>
+</head>
+<body>
+<div class="particles-container" id="particles"></div>
+<header class="header"><nav class="nav container">
+<a href="index.html" class="logo"><span class="logo-heart">♥</span><span class="logo-text">Tahmid & Tonni</span></a>
+<a href="index.html" class="btn btn-secondary" style="padding:10px 20px;font-size:14px">← Back</a>
+</nav></header>
+
+<main class="proposal-hero"><div class="container">
+<div class="big-heart">♥</div>
+<h1 class="proposal-title">Tonni, Will You Marry Me?</h1>
+
+<div id="lockBox">
+<h2 style="font-family:'Playfair Display',serif">🔒 Locked Until The Day</h2>
+<p style="color:#c99aaf;margin:10px 0">এই পেজ খুলবে <strong style="color:#ffb3d1">১০ অক্টোবর ২০২৬</strong> এ</p>
+<div id="lockCount" style="font-size:22px;font-weight:700;color:#fff;text-shadow:0 0 14px rgba(255,42,127,1);margin-top:12px"></div>
+<p style="color:#c99aaf;margin-top:12px;font-size:14px">Tahmid অধীর আগ্রহে অপেক্ষা করছে... ♥</p>
+</div>
+
+<div id="unlockBox" hidden>
+<p class="proposal-sub">Black রাতের আকাশে Pink glow যেমন,<br>তুমিও আমার জীবনের আলো।<br>আজ থেকে চিরকাল — তুমি কি আমার হবে?</p>
+<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+<button class="btn btn-primary" id="yesBtn2" style="font-size:22px;padding:16px 50px">Yes! ♥</button>
+<button class="btn btn-ghost" id="noBtn2">একটু ভাবি...</button>
+</div>
+<div id="togetherTimer2" hidden style="margin-top:20px;padding:20px;border-radius:18px;border:1px solid rgba(255,42,127,.55);background:linear-gradient(180deg,rgba(255,42,127,.15),rgba(5,3,8,.6));box-shadow:0 0 20px rgba(255,42,127,.8),0 0 60px rgba(255,42,127,.4)">
+<div style="font-family:'Dancing Script',cursive;font-size:28px;color:#ffb3d1;text-shadow:0 0 12px rgba(255,42,127,.8)">♥ একসাথে পথচলা ♥</div>
+<div id="togetherTime2" style="font-size:24px;font-weight:700;color:#fff;text-shadow:0 0 14px rgba(255,42,127,1);margin-top:8px">0 দিন : 00 : 00 : 00</div>
+<div style="display:none">Yes বলার মুহূর্ত থেকে চলছে • ডাবল-ক্লিকে রিসেট</div>
+</div>
+</div>
+
+</div></main>
+
+<div class="toast-container" id="toastContainer"></div>
+<script>
+const DATE = new Date('2026-10-10T00:00:00+06:00');
+function pad(n){return String(n).padStart(2,'0')}
+function tick(){
+  const diff = DATE - new Date();
+  const lock=document.getElementById('lockBox'), un=document.getElementById('unlockBox');
+  if(diff<=0){lock.hidden=true;un.hidden=false;document.getElementById('lockCount').textContent='';return;}
+  lock.hidden=false;un.hidden=true;
+  const d=Math.floor(diff/864e5),h=Math.floor(diff/36e5)%24,m=Math.floor(diff/6e4)%60,s=Math.floor(diff/1e3)%60;
+  document.getElementById('lockCount').textContent=`${d} দিন : ${pad(h)} : ${pad(m)} : ${pad(s)}`;
+}
+setInterval(()=>{tick();renderTogether2();},1000);tick();renderTogether2();
+// particles
+const box=document.getElementById('particles');
+for(let i=0;i<30;i++){const p=document.createElement('span');p.className='particle';const s=2+Math.random()*5;p.style.width=p.style.height=s+'px';p.style.left=Math.random()*100+'vw';p.style.bottom='-20px';p.style.animationDuration=7+Math.random()*10+'s';p.style.animationDelay=Math.random()*10+'s';box.appendChild(p);}
+function toast(m){const c=document.getElementById('toastContainer');const e=document.createElement('div');e.className='toast';e.textContent=m;c.appendChild(e);setTimeout(()=>e.remove(),3000);}
+function blast(){for(let i=0;i<70;i++){const s=document.createElement('span');s.className='confetti-heart';s.textContent=['♥','💖','💍','✨'][Math.floor(Math.random()*4)];s.style.left=Math.random()*100+'vw';s.style.top='-30px';s.style.fontSize=14+Math.random()*26+'px';s.style.animationDuration=2+Math.random()*3+'s';document.body.appendChild(s);setTimeout(()=>s.remove(),5000);}}
+function getYes2(){try{return parseInt(localStorage.getItem('tonniYesTime')||'0',10)||0;}catch(e){return 0;}}
+function renderTogether2(){
+  const t=getYes2(); const box=document.getElementById('togetherTimer2');
+  if(!t){box.hidden=true;return;}
+  box.hidden=false;
+  const diff=Date.now()-t;
+  const d=Math.floor(diff/864e5),h=Math.floor(diff/36e5)%24,m=Math.floor(diff/6e4)%60,s=Math.floor(diff/1e3)%60;
+  const p2=(n)=>String(n).padStart(2,'0');
+  document.getElementById('togetherTime2').textContent=`${d} দিন : ${p2(h)} : ${p2(m)} : ${p2(s)}`;
+}
+document.getElementById('yesBtn2').onclick=()=>{if(!getYes2()){try{localStorage.setItem('tonniYesTime',String(Date.now()));}catch(e){} toast('Tonni বলেছে YES! ♥ টাইমার চালু!');}else{toast('She said YES! ♥ Tahmid + Tonni forever!');} renderTogether2(); blast();setTimeout(blast,800);};
+let dodges2=0;
+function dodgeNo2(silent){const b=document.getElementById('noBtn2');if(!silent){dodges2++;if(dodges2===3)toast('আরে! No ধরা যাচ্ছে না 😄');if(dodges2===6)toast('Yes-ই চাপ দাও ♥ No পালিয়েছে!');}if(document.getElementById('unlockBox').hidden)return;b.style.position='fixed';b.style.zIndex=999;b.style.margin='0';b.style.transform='none';const pad=16,w=b.offsetWidth||140,h=b.offsetHeight||50;const x=pad+Math.random()*Math.max(60,(window.innerWidth-w-pad*2));const y=pad+Math.random()*Math.max(60,(window.innerHeight-h-pad*2));b.style.left=x+'px';b.style.top=y+'px';}
+document.getElementById('noBtn2').addEventListener('mouseover',()=>dodgeNo2(false));
+document.getElementById('noBtn2').addEventListener('touchstart',()=>dodgeNo2(false),{passive:true});
+document.getElementById('noBtn2').addEventListener('click',function(e){e.preventDefault();dodgeNo2(false);});
+setInterval(()=>{if(!document.getElementById('unlockBox').hidden)dodgeNo2(true);},1400);
+document.getElementById('togetherTimer2').addEventListener('dblclick',()=>{if(confirm('টাইমার রিসেট করবে?')){try{localStorage.removeItem('tonniYesTime');}catch(e){} renderTogether2(); toast('টাইমার রিসেট হয়ে গেছে');}});
+</script>
+</body>
+</html>
